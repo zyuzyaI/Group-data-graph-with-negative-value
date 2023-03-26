@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://d3js.org/d3.v4.js"></script>
+        <style>
+            body { 
+				text-align: center;
+			}
+
+            .hide{
+                display:none;
+            }
+            
+            .show{
+                display:block;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            {% if message %}
+                <h3>Sorry, but datasets were not found! Please check the path.</h3>
+            {% endif %}
+        </div>
+        {% if datasets %}
+            <div id="headers_form">
+                <form action="{{ url_for('index') }}" method="post">
+                    <h4>Please select dataset:</h4>
+                    <div>
+                        {% for dataset in datasets %}
+                            <input type="radio" name="dataset" value="{{ dataset }}">
+                            <label for="Choice1">{{ dataset }}</label>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <div>
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <hr>
+        {% endif %}
+        {% if stat_data %}
+            <div id="my_statistic">
+                <script src="static/script.js"></script>
+                <script type="text/javascript">
+                    plotGraph('{{ stat_data }}');
+                </script>
+            </div>
+        {% endif %} </body>
+    <hr>
+    <br>
+    <div>
+        <input type="button" value="Don't push this button" onclick="onButtonClick()" />
+        <div class="hide" type="text" id="textInput">
+            <a href="https://savelife.in.ua/en/donate-en/#donate-army-card-monthly">
+                <h3>If you like this code, please support Ukraine!</h3>
+            </a>
+        </div>
+    </div>
+    <script>
+        function onButtonClick(){
+            document.getElementById('textInput').className="show";
+        }
+    </script>
+</html>
+
